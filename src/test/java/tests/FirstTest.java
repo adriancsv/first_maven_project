@@ -2,6 +2,8 @@ package tests;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import utils.Driver;
 
@@ -26,7 +28,7 @@ public class FirstTest {
 
 
     @Test
-    public void findDress(){
+    public void findDress() throws InterruptedException {
         driver = Driver.getInstance();
         driver.navigate(URL);
 
@@ -36,18 +38,20 @@ public class FirstTest {
         WebElement searchButton = driver.webDriver.findElementByXPath("//*[@id=\"searchbox\"]/button");
         searchButton.click();
 
-        WebElement firstItem = driver.webDriver.findElementByXPath("//*[@id=\"homefeatured\"]/li[1]/div/div[1]/div/a[1]/img");
+
+        WebElement firstItem = driver.webDriver.findElementByXPath("//*[@id=\"center_column\"]/ul/li[1]/div/div[1]/div/a[1]/img");
         firstItem.click();
 
-        WebElement addToCar = driver.webDriver.findElementByXPath("//*[@id=\"add_to_cart\"]/button/span");
-        addToCar.click();
 
-        driver.exit();
+        WebElement addToCart = driver.webDriver.findElement(By.xpath("//span[contains(text(),'Add to cart')]"));
+        addToCart.click();
+
+       // driver.exit();
 
     }
 
     @Test
-    public void changeDressAttributes(){
+    public void changeDressAttributes() {
         driver = Driver.getInstance();
         driver.navigate(URL);
 
@@ -57,19 +61,57 @@ public class FirstTest {
         WebElement searchButton = driver.webDriver.findElementByXPath("//*[@id=\"searchbox\"]/button");
         searchButton.click();
 
-        WebElement firstItem = driver.webDriver.findElementByXPath("//*[@id=\"homefeatured\"]/li[2]/div/div[1]/div/a[1]/img");
-        firstItem.click();
+        WebElement secondItem = driver.webDriver.findElementByXPath("//*[@id=\"center_column\"]/ul/li[2]/div/div[1]/div/a[1]/img");
+        secondItem.click();
 
-        WebElement changeColor = driver.webDriver.findElementByXPath("//*[@id=\"color_8\"]");
+        WebElement changeColor = driver.webDriver.findElementByXPath("//*[@id=\"color_24\"]");
         changeColor.click();
 
         WebElement changeSizeSelector = driver.webDriver.findElementByXPath("//*[@id=\"group_1\"]");
         changeSizeSelector.click();
         changeSizeSelector.sendKeys("l");
 
-        WebElement addToCar = driver.webDriver.findElementByXPath("//*[@id=\"add_to_cart\"]/button/span");
-        addToCar.click();
+        WebElement addToCart = driver.webDriver.findElementByXPath("//*[@id=\"add_to_cart\"]/button/span");
+        addToCart.click();
+    }
 
 
+    @Test
+    public void checkoutDelete() {
+        driver = Driver.getInstance();
+        driver.navigate(URL);
 
-}
+        WebElement searchBox = driver.webDriver.findElement(By.xpath("//*[@id=\"search_query_top\"]"));
+        searchBox.sendKeys("dress");
+
+        WebElement searchButton = driver.webDriver.findElementByXPath("//*[@id=\"searchbox\"]/button");
+        searchButton.click();
+
+        WebElement secondItem = driver.webDriver.findElementByXPath("//*[@id=\"center_column\"]/ul/li[2]/div/div[1]/div/a[1]/img");
+        secondItem.click();
+
+        WebElement changeColor = driver.webDriver.findElementByXPath("//*[@id=\"color_24\"]");
+        changeColor.click();
+
+        WebElement changeSizeSelector = driver.webDriver.findElementByXPath("//*[@id=\"group_1\"]");
+        changeSizeSelector.click();
+        changeSizeSelector.sendKeys("l");
+
+        WebElement addToCart = driver.webDriver.findElementByXPath("//*[@id=\"add_to_cart\"]/button/span");
+        addToCart.click();
+
+        WebDriverWait wait = new WebDriverWait(driver.webDriver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"layer_cart\"]/div[1]/div[2]/div[4]/a/span")));
+
+        WebElement proceedToCheckoutButton = driver.webDriver.findElement(By.xpath("//*[@id=\"layer_cart\"]/div[1]/div[2]/div[4]/a/span"));
+        proceedToCheckoutButton.click();
+
+       wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"product_4_45_0_0\"]/td[7]/div")));
+
+
+        WebElement deleteItemButton = driver.webDriver.findElement(By.xpath("//*[@id=\"product_4_45_0_0\"]/td[7]/div"));
+        deleteItemButton.click();
+    }
+
+    }
+

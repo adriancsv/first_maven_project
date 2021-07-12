@@ -1,5 +1,6 @@
 package utils;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -53,7 +54,9 @@ public class Driver {
         }
     }
 
-    public void navigate(){
-        webDriver.get("https://www.google.ro/");
+    public void navigate(String url){
+        webDriver.get(url);
     }
+
+
 }

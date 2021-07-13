@@ -8,6 +8,7 @@ import java.util.List;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class selectors {
 
@@ -84,4 +85,66 @@ public class selectors {
 
     }
 
+   /* On the same section for the bottom table get the state of the filters buttons,
+    click filter then get the state again*/
+    //doesn't display anything
+
+    @Test
+    public void filterButon() {
+        driver = Driver.getInstance();
+        driver.navigate("https://www.seleniumeasy.com");
+        driver.navigate("https://www.seleniumeasy.com/test/table-search-filter-demo.html");
+
+        WebElement filterButton = driver.webDriver.findElementByCssSelector(".btn.btn-default.btn-filter.btn-xs");
+        WebElement header = driver.webDriver.findElementByCssSelector("th:nth-of-type(2) > .form-control");
+
+        System.out.println("the state of the filters buttons is " + header.getAttribute("style"));
+        filterButton.click();
+        System.out.println("the state of the filters buttons is " + header.getAttribute("style"));
+
+    }
+
+/*    On the Alerts & Modals section - Bootstrap Modal:
+    launch the single modal example, build a selector for the x button, close the modal,
+    check if the button is still displayed, what about present?*/
+    //don't know what to do
+
+
+
+
+   /* On the List Box section: JQuery list box: add two values from the left list
+            (only one selector for all values) to the right box,
+    make sure the value is in the second field (the fields have different selectors)
+    then remove one of the added values*/
+
+    @Test
+    public void dualListBox() {
+        driver = Driver.getInstance();
+        driver.navigate("https://www.seleniumeasy.com");
+        driver.navigate("https://www.seleniumeasy.com/test/jquery-dual-list-box-demo.html");
+
+        WebElement addButton = driver.webDriver.findElementByCssSelector(".btn.btn-primary.btn-sm.pAdd");
+        WebElement removeButton = driver.webDriver.findElementByCssSelector(".btn.btn-primary.btn-sm.pRemove");
+        listPick("Manuela").click();
+        addButton.click();
+        listPick("Laura").click();
+        addButton.click();
+
+        listRemove("Laura").click();
+        removeButton.click();
+
+
+    }
+
+
+
+    public WebElement listPick(String pickItem) {
+        WebElement pickElement = driver.webDriver.findElementByXPath("//div[@id='pickList']/div/div[1]/select/option[.='" + pickItem + "']");
+        return pickElement;
+    }
+
+    public WebElement listRemove (String removeItem){
+        WebElement removeElement = driver.webDriver.findElementByXPath("//div[@id='pickList']/div/div[3]/select/option[.='" + removeItem + "']");
+        return removeElement;
+    }
 }

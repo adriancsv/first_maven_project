@@ -130,6 +130,8 @@ public class selectors {
         listPick("Laura").click();
         addButton.click();
 
+        //asserts
+
         listRemove("Laura").click();
         removeButton.click();
 

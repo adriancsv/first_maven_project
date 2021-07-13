@@ -109,7 +109,7 @@ public class FirstTest {
        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"product_4_45_0_0\"]/td[7]/div")));
 
 
-        WebElement deleteItemButton = driver.webDriver.findElement(By.xpath("//*[@id=\"product_4_45_0_0\"]/td[7]/div"));
+        WebElement deleteItemButton = driver.webDriver.findElement(By.xpath("//table[@id='cart_summary']/tbody/tr[1]//a[@title='Delete']/i[@class='icon-trash']"));
         deleteItemButton.click();
     }
 
